@@ -5,22 +5,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import jdk.jshell.spi.ExecutionControlProvider;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.json.JSONObject;
 
+@Getter @Setter @AllArgsConstructor
 class BookedFlight {
-    BookedFlight(String flightId, String date) {
-        this.date = date;
-        this.flightId = flightId;
-    }
-    public String date;
-    public String flightId;
+    private String flightId;
+    private String date;
 }
 
 @WebServlet(name = "userInfo", value = "/userInfo")
@@ -62,9 +60,12 @@ public class UserInfo extends HttpServlet {
         response.addHeader("Access-Control-Allow-Origin", "*");
 
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
         for(BookedFlight flight : flights) {
-            out.println(flight.flightId + "#" + flight.date + "#");
+            json.put(flight.getFlightId(), new JSONObject().put("id", flight.getFlightId()).put("date", flight.getDate()));
         }
+
+        out.println(json);
     }
 
     public void destroy() {

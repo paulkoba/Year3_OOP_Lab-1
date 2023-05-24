@@ -3,8 +3,8 @@ package com.aircorp.aircorp;
 import java.security.SecureRandom;
 
 public class RandomUtils {
-    static final String AB = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    static SecureRandom rnd = new SecureRandom();
+    static private final String AB = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    static private final SecureRandom rnd = new SecureRandom();
 
     static public String randomString(int len) {
         StringBuilder sb = new StringBuilder(len);

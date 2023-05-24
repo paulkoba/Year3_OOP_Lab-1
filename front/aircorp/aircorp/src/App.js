@@ -2,7 +2,7 @@ import Navbar from "./components/Navbar"
 import Profile from "./components/Profile"
 import Flights from "./components/Flights"
 import Purchase from "./components/Purchase"
-
+import About from "./components/About"
 import "./components/css/style.css"
 import {
   BrowserRouter,
@@ -17,7 +17,7 @@ function App() {
         <Route path="/flights" element={<Flights/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/purchase/:id" element={<Purchase/>} />
-        <Route path="/" element={<Navbar/>} />
+        <Route path="/" element={<About/>} />
       </Routes>
     </BrowserRouter>
   )

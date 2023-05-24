@@ -3,25 +3,18 @@ package com.aircorp.aircorp;
 import java.io.*;
 import java.sql.*;
 import java.time.Instant;
-import java.util.Map;
-import java.util.Set;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "purchaseTicket", value = "/purchaseTicket")
 public class PurchaseTicket extends HttpServlet {
     DatabaseConnection dbConnection = new DatabaseConnection();
-    private String message;
-    public void init() {
-
-    }
+    FlightManager flightManager = new FlightManager();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String user = request.getParameter("user_id");
         String flight = request.getParameter("flight");
-        String purchase_date = Date.from(Instant.now()).toString();
 
         response.setContentType("text/plain");
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
@@ -31,6 +24,11 @@ public class PurchaseTicket extends HttpServlet {
 
         if(user == null || flight == null) {
             out.println("Invalid user id or flight id provided.");
+            return;
+        }
+
+        if(!flightManager.canPurchaseTicket(flight)) {
+            out.println("No seats available");
             return;
         }
 
@@ -45,11 +43,12 @@ public class PurchaseTicket extends HttpServlet {
 
             out.println("Success");
         } catch (SQLException e) {
-            out.println("Failure: " + e.toString());
+            out.println("Failure: " + e);
         }
     }
 
     public void destroy() {
+        flightManager.destroy();
         dbConnection.closeConnection();
     }
 }

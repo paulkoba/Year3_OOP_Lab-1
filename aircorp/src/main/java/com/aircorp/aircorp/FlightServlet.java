@@ -11,6 +11,7 @@ import java.util.List;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.json.JSONObject;
 
 @WebServlet(name = "flightServlet", value = "/flights")
 public class FlightServlet extends HttpServlet {
@@ -55,11 +56,13 @@ public class FlightServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
         response.addHeader("Access-Control-Allow-Origin", "*");
 
-        // Hello
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
         for(Flight flight : flights) {
-            out.println(flight.id + "#" + flight.seats + "#" + flight.seat_price + "#" + flight.date + "#");
+            json.put(flight.getId(), new JSONObject().put("seats", flight.getSeats()).put("id", flight.getId()).put("seatPrice", flight.getSeatPrice()).put("date", flight.getDate()));
         }
+
+        out.println(json);
     }
 
     public void destroy() {

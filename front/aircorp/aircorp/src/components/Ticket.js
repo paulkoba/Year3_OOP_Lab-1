@@ -3,10 +3,10 @@ const Ticket = (ticket) => {
     return (
         <div className="ticket">
             <div className="ticket-cell">
-                {ticket.ticket.flight}
+                {ticket.ticket[1].id}
             </div>
             <div className="ticket-cell">
-                {ticket.ticket.dateBooked}
+                {ticket.ticket[1].date}
             </div>
         </div>
     )

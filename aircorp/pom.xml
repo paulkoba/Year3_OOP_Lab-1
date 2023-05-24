@@ -47,14 +47,26 @@
           <artifactId>mvc-auth-commons</artifactId>
           <version>1.+</version>
       </dependency>
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.18.20</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>[20180131,)</version>
+      </dependency>
   </dependencies>
 
   <build>
         <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.2</version>
-      </plugin>                </plugins>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+              </plugin>
+        </plugins>
   </build>
 </project>

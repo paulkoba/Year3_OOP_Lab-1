@@ -12,16 +12,13 @@ const Profile = () => {
 
     useEffect(() => {
         try {
-            let responseData = getResponse().split("#"); 
+            let responseData = JSON.parse(getResponse()); 
             let out = Array()
     
-            for(let i = 0; i + 1 < responseData.length; i += 2) {
-                let item = {}
-                item.flight = responseData[i].trim()
-                item.dateBooked = responseData[i + 1].trim()
+            Object.entries(responseData).forEach(item => {
                 out.push(item)
-            }
-    
+            })
+            
             setFlights(out)
         } catch (error) {
             console.error("Error: ", error.message);
